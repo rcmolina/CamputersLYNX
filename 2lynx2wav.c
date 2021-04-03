@@ -1,5 +1,5 @@
 /* lynx2wav RetroWiki tape converter*/
-#define version "1.2"
+#define version "1.3"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -74,11 +74,20 @@ void emit_square_level(int size, int nBit)
 
     for (i=0;i<size;i++) {
 		     
-			 if (i < size/2) value = 235;
-			 else value = 20; 
+			 //if (i < size/2) value = 235;
+			 //else value = 20; 
               
-			  fputc(value,out);
-			  			
+			 // fputc(value,out);
+			  x=i*360/size;
+			  if ((x >=0) && (x <30)) value = 255; // for zero
+			  else if ((x >=30) && (x <150)) value = 0;
+			  else if ((x >=150) && (x <180)) value = 255; // for zero
+			  else if ((x >=180) && (x <210)) value = 255; // for zero
+			  else if ((x >=210) && (x <330)) value = 255;
+			  else if ((x >=330) && (x <360)) value = 255; //for zero
+			   
+			 
+			  fputc(value,out);	  	  
 	}
 	file_size+=size;
 }
